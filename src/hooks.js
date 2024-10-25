@@ -12,12 +12,13 @@ export function useFlip() {
 	return [isFacingUp, flipCard];
 }
 
-export function useAxios(url) {
+export function useAxios(baseURL) {
 	const [data, setData] = useState([]);
 
-	const addData = async () => {
+	const addData = async (endpoint = "") => {
 		try {
-			const res = await axios.get(url);
+			// Changed to allow for a endpoint option
+			const res = await axios.get(`${baseURL}${endpoint}`);
 			setData((data) => [
 				...data,
 				{ ...res.data, id: uuid() },
